@@ -66,3 +66,40 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.flip-card {
+  width: 600px;
+  height: 400px;
+  perspective: 1000px; /* Add perspective for 3D effect */
+}
+
+.flip-card-inner {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s; /* Apply transition for smooth flip effect */
+  transform-style: preserve-3d; /* Preserve 3D transformations */
+}
+
+.flip-card.flipped .flip-card-inner {
+  transform: rotateY(180deg); /* Flip the card to the back side */
+}
+
+.flip-card-front,
+.flip-card-back {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  backface-visibility: hidden; /* Hide back side during the flip */
+}
+
+.flip-card-front {
+  background-color: #bbb;
+  color: black;
+}
+
+.flip-card-back {
+  background-color: #2980b9;
+  color: white;
+  transform: rotateY(180deg); /* Initially rotate back side */
+}

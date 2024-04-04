@@ -1,35 +1,43 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from 'react';
+import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [cards, setCards] = useState([
+    {question: 'Question 1', answer: 'Answer 1'},
+    {question: 'Question 2', answer: 'Answer 2'},
+    // Add more cards as needed
+  ]);
+
+  const [currentCardIndex, setCurrentCardIndex] = useState(0);
+  const [isFlipped, setIsFlipped] = useState(false);
+
+  const handleClick = () => {
+    setIsFlipped(!isFlipped);
+  };
+
+  const nextCard = () => {
+    setCurrentCardIndex(Math.floor(Math.random() * cards.length));
+    setIsFlipped(false);
+  }
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <h1>Card Set Title</h1>
+    <p>Short description. Total number of cards: {cards.length}</p>
+    <div className={`flip-card ${isFlipped ? 'flipped' : ''}`} onClick={handleClick}>
+      <div className="flip-card-inner">
+        <div className="flip-card-front">
+          {cards[currentCardIndex].question}
+        </div>
+        <div className="flip-card-back">
+          {cards[currentCardIndex].answer}
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+    </div>
+
+    <button onClick={nextCard}>Next</button>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
